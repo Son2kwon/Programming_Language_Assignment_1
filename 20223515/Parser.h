@@ -4,27 +4,27 @@ using namespace std;
 /*
 * Grammars
 * 
-<program> ¡æ <statements>
-<statements> ¡æ <statement> | <statement><semi_colon><statements>
-<statement> ¡æ <ident><assignment_op><expression>
-<expression> ¡æ <term><term_tail>
-<term_tail> ¡æ <add_op><term><term_tail> | ¥å
-<term> ¡æ <factor> <factor_tail>
-<factor_tail> ¡æ <mult_op><factor><factor_tail> | ¥å
-<factor> ¡æ <left_paren><expression><right_paren> | <ident> | <const>
-<const> ¡æ any decimal numbers
-<ident> ¡æ any names conforming to C identifier rules
-<assignment_op> ¡æ :=
-<semi_colon> ¡æ ;
-<add_operator> ¡æ + | -
-<mult_operator> ¡æ * | /
-<left_paren> ¡æ (
-<right_paren> ¡æ )
+<program> å ì™ì˜™ <statements>
+<statements> å ì™ì˜™ <statement> | <statement><semi_colon><statements>
+<statement> å ì™ì˜™ <ident><assignment_op><expression>
+<expression> å ì™ì˜™ <term><term_tail>
+<term_tail> å ì™ì˜™ <add_op><term><term_tail> | å ì™ì˜™
+<term> å ì™ì˜™ <factor> <factor_tail>
+<factor_tail> å ì™ì˜™ <mult_op><factor><factor_tail> | å ì™ì˜™
+<factor> å ì™ì˜™ <left_paren><expression><right_paren> | <ident> | <const>
+<const> å ì™ì˜™ any decimal numbers
+<ident> å ì™ì˜™ any names conforming to C identifier rules
+<assignment_op> å ì™ì˜™ :=
+<semi_colon> å ì™ì˜™ ;
+<add_operator> å ì™ì˜™ + | -
+<mult_operator> å ì™ì˜™ * | /
+<left_paren> å ì™ì˜™ (
+<right_paren> å ì™ì˜™ )
 
 */
 
-void program();
-void statements();
+void program(string* token);
+void statements(string* token);
 void statement();
 void expression();
 void term_tail();

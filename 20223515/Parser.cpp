@@ -2,17 +2,17 @@
 #include<iostream>
 using namespace std;
 
-// <program> ¡æ <statements>
-void program() {
-	statements();
+// <program> ï¿½ï¿½ <statements>
+void program(string* token) {
+	statements(token);
 }
 
-// <statements> ¡æ <statement> | <statement><semi_colon><statements>
-void statements() {
+// <statements> ï¿½ï¿½ <statement> | <statement><semi_colon><statements>
+void statements(string* token) {
 	/*
-	look_ahead·Î semi_colonÀÖ´ÂÁö È®ÀÎ
-		ÀÖÀ¸¸é <statement><semicolon><statements>
-		¾øÀ¸¸é <statement>
+	look_aheadï¿½ï¿½ semi_colonï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <statement><semicolon><statements>
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <statement>
 	*/
 
 	
