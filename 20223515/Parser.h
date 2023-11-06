@@ -3,23 +3,23 @@ using namespace std;
 
 /*
 * Grammars
-* 
-<program> 占쏙옙 <statements>
-<statements> 占쏙옙 <statement> | <statement><semi_colon><statements>
-<statement> 占쏙옙 <ident><assignment_op><expression>
-<expression> 占쏙옙 <term><term_tail>
-<term_tail> 占쏙옙 <add_op><term><term_tail> | 占쏙옙
-<term> 占쏙옙 <factor> <factor_tail>
-<factor_tail> 占쏙옙 <mult_op><factor><factor_tail> | 占쏙옙
-<factor> 占쏙옙 <left_paren><expression><right_paren> | <ident> | <const>
-<const> 占쏙옙 any decimal numbers
-<ident> 占쏙옙 any names conforming to C identifier rules
-<assignment_op> 占쏙옙 :=
-<semi_colon> 占쏙옙 ;
-<add_operator> 占쏙옙 + | -
-<mult_operator> 占쏙옙 * | /
-<left_paren> 占쏙옙 (
-<right_paren> 占쏙옙 )
+
+<program> → <statements>
+<statements> → <statement> | <statement><semi_colon><statements>
+<statement> → <ident><assignment_op><expression>
+<expression> → <term><term_tail>
+<term_tail> → <add_op><term><term_tail> | ε
+<term> → <factor> <factor_tail>
+<factor_tail> → <mult_op><factor><factor_tail> | ε
+<factor> → <left_paren><expression><right_paren> | <ident> | <const>
+<const> → any decimal numbers
+<ident> → any names conforming to C identifier rules
+<assignment_op> → :=
+<semi_colon> → ;
+<add_operator> → + | -
+<mult_operator> → * | /
+<left_paren> → (
+<right_paren> → )
 
 */
 
