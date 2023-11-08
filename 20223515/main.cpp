@@ -7,20 +7,20 @@ using namespace std;
 
 int main(int args, char* argv[]) {
 	ifstream f(argv[1]);
-	string line;
-	string* token;
+	string* token = NULL;
+	int index = 0;
 
 	if (f.is_open()) {
-		while (getline(f, line)) {	// txt파일 끝에 닿을 때까지 한 줄 씩 읽어옴
-			stringstream ss(line);	// 공백을 기준으로 문자열을 나눔
-			int index = 0;
+		while (!f.eof()) {
+			string in; f >> in;
+			token[index] = in;
 
-			cout << line << endl;	// 읽어온 문장을 출력
-			
-			while (ss >> token[index]) index++;	// 그 문장을 token이라는 문자열 배열에 넣어줌
-
-			program(token);
+			if (in[0] == ';') {
+				program(token);
+			}
 		}
+
+		f.close();
 	}
 	else cout << "Fail to open file" << endl;
 }
