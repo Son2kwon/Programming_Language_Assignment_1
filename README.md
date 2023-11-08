@@ -4,8 +4,11 @@ Recursive-Descent Parsing
 Approach
 1. txt파일 open
 2. 문장을 읽어와 ';'까지 저장. txt파일의 cursor는 ';' 바로 뒤로 설정.
-3. 공백을 기준으로 구분(Lexeme 생성)
-4. look_ahead으로 correct RHS를 찾음
+     txt파일에서 한 단어씩 읽으면서 저장.
+     ';'를 만나면 stop.
+     EOF를 만나면 stop.
+4. 공백을 기준으로 구분(Lexeme 생성)
+5. look_ahead으로 correct RHS를 찾음
      <statements>는 look_ahead로 <semi_colon>을 찾음
      <term_tail>, <factor_tail>, <factor>는 바로 다음 token 확인
 6. Parsing
