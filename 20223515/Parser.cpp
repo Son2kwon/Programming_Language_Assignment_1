@@ -3,16 +3,16 @@
 using namespace std;
 
 // <program> → <statements>
-void program() {
-	statements();
+void program(string* token) {
+	statements(token);
 }
 
 // <statements> → <statement> | <statement><semi_colon><statements>
-void statements() {
+void statements(string* token) {
 	/*
-	look_ahead로 semi_colon있는지 확인
-		있으면 <statement><semicolon><statements>
-		없으면 <statement>
+	look_ahead를 통햐 semi_colon이 있는지 확인
+		있으면 LHS는 <statement><semicolon><statements>
+		없으면 LHS는 <statement>
 	*/
 
 	

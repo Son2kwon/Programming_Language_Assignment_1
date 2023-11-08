@@ -3,6 +3,7 @@
 #include<string>
 #include<sstream>
 #include"Parser.h"
+using namespace std;
 
 int main(int args, char* argv[]) {
 	ifstream f(argv[1]);

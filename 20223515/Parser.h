@@ -3,28 +3,28 @@ using namespace std;
 
 /*
 * Grammars
-* 
-<program> ¡æ <statements>
-<statements> ¡æ <statement> | <statement><semi_colon><statements>
-<statement> ¡æ <ident><assignment_op><expression>
-<expression> ¡æ <term><term_tail>
-<term_tail> ¡æ <add_op><term><term_tail> | ¥å
-<term> ¡æ <factor> <factor_tail>
-<factor_tail> ¡æ <mult_op><factor><factor_tail> | ¥å
-<factor> ¡æ <left_paren><expression><right_paren> | <ident> | <const>
-<const> ¡æ any decimal numbers
-<ident> ¡æ any names conforming to C identifier rules
-<assignment_op> ¡æ :=
-<semi_colon> ¡æ ;
-<add_operator> ¡æ + | -
-<mult_operator> ¡æ * | /
-<left_paren> ¡æ (
-<right_paren> ¡æ )
+
+<program> â†’ <statements>
+<statements> â†’ <statement> | <statement><semi_colon><statements>
+<statement> â†’ <ident><assignment_op><expression>
+<expression> â†’ <term><term_tail>
+<term_tail> â†’ <add_op><term><term_tail> | Îµ
+<term> â†’ <factor> <factor_tail>
+<factor_tail> â†’ <mult_op><factor><factor_tail> | Îµ
+<factor> â†’ <left_paren><expression><right_paren> | <ident> | <const>
+<const> â†’ any decimal numbers
+<ident> â†’ any names conforming to C identifier rules
+<assignment_op> â†’ :=
+<semi_colon> â†’ ;
+<add_operator> â†’ + | -
+<mult_operator> â†’ * | /
+<left_paren> â†’ (
+<right_paren> â†’ )
 
 */
 
-void program();
-void statements();
+void program(string* token);
+void statements(string* token);
 void statement();
 void expression();
 void term_tail();
