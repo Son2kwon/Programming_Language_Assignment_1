@@ -25,16 +25,15 @@ using namespace std;
 
 void program(string* token);
 void statements(string* token);
-void statement();
-void expression();
-void term_tail();
-void term();
-void factor_tail();
-void factor();
+void statement(string* token);
+void expression(string* token);
+void term_tail(string* token);
+void term(string* token);
+void factor_tail(string* token);
+void factor(string* token);
 void constant();
-void ident();
-void assignment_op();
-void semi_colon();
+void ident(string token);
+
 void add_operator();
 void mult_operator();
 void left_paren();
