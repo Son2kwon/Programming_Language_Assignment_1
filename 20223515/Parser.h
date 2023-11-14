@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 /*
@@ -23,18 +24,19 @@ using namespace std;
 
 */
 
-void program(string* token);
-void statements(string* token);
-void statement(string* token);
-void expression(string* token);
-void term_tail(string* token);
-void term(string* token);
-void factor_tail(string* token);
-void factor(string* token);
-void constant();
-void ident(string token);
+void program(vector<string>&);
+void statements(vector<string>&);
+void statement(string&);
+void expression(string&);
+void term_tail(string&);
+void term(string&);
+void factor_tail(string&);
+void factor(string&);
+void constant(string&);
+void ident(string&);
 
-void add_operator();
-void mult_operator();
-void left_paren();
-void right_paren();
+void assignment_op(string&);
+void add_operator(string&);
+void mult_operator(string&);
+void left_paren(string&);
+void right_paren(string&);
