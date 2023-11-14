@@ -1,1 +1,2 @@
-string name void main ;
+operand := 3 + 4 ; operand2 := 5 + 6 ;
+operand := 7 + 8
