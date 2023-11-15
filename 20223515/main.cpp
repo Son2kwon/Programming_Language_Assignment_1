@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
 	f.open(argv[1]);
 	vector<string> sentences;	// 문장들을 저장하는 sentences vector (신세계 shit...)
 	string line;
+	int ID = 0, CONST = 0, OP = 0;
 
 	if (f.is_open()) {
 		while (getline(f, line)) {	// 1문장씩 읽어오면서 sentence에 저장

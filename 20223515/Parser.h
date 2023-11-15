@@ -24,19 +24,34 @@ using namespace std;
 
 */
 
+class sent {	// 한 문장에 대해 정보를 저장하는 class
+public:
+	int ID;
+	int CONST;
+	int OP;
+	string sentence;
+
+	sent(string sentence) {
+		this->sentence = sentence;
+		this->ID = 0;
+		this->CONST = 0;
+		this->OP = 0;
+	}
+};
+
 void program(vector<string>&);
 void statements(vector<string>&);
-void statement(string&);
-void expression(string&);
-void term_tail(string&);
-void term(string&);
-void factor_tail(string&);
-void factor(string&);
-void constant(string&);
-void ident(string&);
+void statement(sent&);
+void expression(sent&);
+void term_tail(sent&);
+void term(sent&);
+void factor_tail(sent&);
+void factor(sent&);
+void constant(sent&);
+void ident(sent&);
 
-void assignment_op(string&);
-void add_operator(string&);
-void mult_operator(string&);
-void left_paren(string&);
-void right_paren(string&);
+void assignment_op(sent&);
+void add_operator(sent&);
+void mult_operator(sent&);
+void left_paren(sent&);
+void right_paren(sent&);
