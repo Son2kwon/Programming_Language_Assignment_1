@@ -2,118 +2,109 @@
 #include<iostream>
 #include<string>
 #include<cmath>
+#include<algorithm>
 using namespace std;
 
+extern int next_token;
+extern string token_string;
+symbol_table table;
 
-bool isNumber(const std::string& str) {
-	try {
-		size_t pos;
-		std::stoi(str, &pos);
-		return pos == str.length();  // If pos is equal to the string length, the entire string was converted
-	}
-	catch (const std::invalid_argument& e) {
-		return false;  // Conversion failed
-	}
-	catch (const std::out_of_range& e) {
-		return false;  // Value is out of the range of representable values for the int type
-	}
+
+// 결과를 출력하는 함수
+void printResult(sentence& sentence) {
+	cout << "ID: " << sentence.ID << "; ";
+	cout << "CONST: " << sentence.CONST << "; ";
+	cout << "OP: " << sentence.OP << ";" << endl;
 }
 
 // <program> → <statements>
-void program(vector<string>& sentences) {
+void program(vector<sentence>& sentences) {
 	statements(sentences);
 }
 
 // <statements> → <statement> | <statement><semi_colon><statements>
 void statements(vector<string>& sentences) {
 	/*
-	look_ahead를 통해 첫 문장에 semi_colon이 있는지 확인
-		있으면 LHS는 <statement><semicolon><statements>
-		없으면 LHS는 <statement>
 
-		<statement>에는 첫 문장
-		<statements>에는 이외의 문장
 	*/
 
-	if (sentences[0].find(';')) {
-		int index_semi = sentences[0].find(';');
-		sent sentence(sentences[0].substr(0, index_semi - 1));	// 첫 ; 이전 문장은 statement로
 
-		sentences.erase(sentences.begin());	// 첫 문장 제거해서 남은 문장을 sentences vector에 저장
-
-		statement(sentence);
-
-		if(!sentences.empty()) statements(sentences);
-	}
-
-	else {
-		sent sentence(sentences[0]);
-
-		statement(sentence);
-	}
 }
 
 // <statement> → <ident><assignment_op><expression>
-void statement(sent& sentence) {
+void statement(sentence& const sentence) {
 	/*
-	
+
 	*/
 
 	cout << sentence.sentence << endl;
+
 	ident(sentence);
 	assignment_op(sentence);
 	expression(sentence);
 
-	cout << "ID: " << sentence.ID << "; ";
-	cout << "CONST: " << sentence.CONST << "; ";
-	cout << "OP: " << sentence.OP << ";" << endl;
-
+	printResult(sentence);
 }
 
 // <ident> → any names conforming to C identifier rules
-void ident(sent& sentence) {
+void ident(sentence& sentence) {
 	int blank = sentence.sentence.find(' ');
 
 	string identifier = sentence.sentence.substr(0, blank);
 	sentence.sentence = sentence.sentence.substr(blank + 1);
 	sentence.ID++;
 
-	//cout << "identifier: " << identifier << endl;
+	if (sentence.sentence.find(":=") == 0) {		// 정의하는 부분이라면
+		if (!table.isThere(identifier)) {	// 기존에 없다면 저장
+			varData data; data.name = identifier; data.value = 0;
+			table.datum.push_back(data);
+		}									// 있으면 오류 x
+	}
+
+	else {									// 정의하는 부분이 아니라면
+		if (table.isThere(identifier)) {	// 기존에 없다면 오류
+			sentence.error = true;
+			varData data; data.name = identifier; data.value = NULL;
+		}
+
+		else {								// 있다면 오류 x
+
+		}
+	}
+
 }
 
-void assignment_op(sent& sentence) {
+void assignment_op(sentence& sentence) {
 	int blank = sentence.sentence.find(' ');
 
 	string assign_op = sentence.sentence.substr(0, blank);
 	sentence.sentence = sentence.sentence.substr(blank + 1);
-
-	// cout << "assignment operator: " << assign_op << endl;
 }
 
 // <expression> → <term><term_tail>
-void expression(sent& sentence) {
+void expression(sentence& sentence) {
 	/*
-	
+
 	*/
 	term(sentence);
 	term_tail(sentence);
 }
 
 // <term> → <factor> <factor_tail>
-void term(sent& sentence) {
+void term(sentence& sentence) {
 	/*
-	
+
 	*/
 
 	factor(sentence);
 	factor_tail(sentence);
 }
-	
+
 
 // <term_tail> → <add_op><term><term_tail> | ε
-void term_tail(sent& sentence) {
+void term_tail(sentence& sentence) {
 	/*
-	
+
 	*/
 	string add = "+";
 
@@ -129,7 +120,7 @@ void term_tail(sent& sentence) {
 }
 
 // <factor> → <left_paren><expression><right_paren> | <ident> | <const>
-void factor(sent& sentence) {
+void factor(sentence& sentence) {
 	string left = "(";
 
 	if (sentence.sentence.compare(0, left.length(), left) == 0) {	// 왼괄호가 있는 경우
@@ -148,7 +139,7 @@ void factor(sent& sentence) {
 }
 
 // <factor_tail> → <mult_op><factor><factor_tail> | ε
-void factor_tail(sent& sentence) {
+void factor_tail(sentence& sentence) {
 	string mul = "*";
 
 	if (sentence.sentence.compare(0, mul.length(), mul) == 0) {
@@ -162,46 +153,39 @@ void factor_tail(sent& sentence) {
 	}
 }
 
-void add_operator(sent& sentence) {
+void add_operator(sentence& sentence) {
 	int add = sentence.sentence.find('+') + 1;
 
 	string add_op = sentence.sentence.substr(0, add);
 	sentence.sentence = sentence.sentence.substr(add + 1);
-	
-	// cout << "add operator " << add_op << endl;
+
 	sentence.OP++;
 }
 
-void mult_operator(sent& sentence) {
+void mult_operator(sentence& sentence) {
 	int mul = sentence.sentence.find('*') + 1;
 
 	string mul_op = sentence.sentence.substr(0, mul);
 	sentence.sentence = sentence.sentence.substr(mul + 1);
 
-	// cout << "mul operator " << mul_op << endl;
 	sentence.OP++;
 }
 
-void left_paren(sent& sentence) {
+void left_paren(sentence& sentence) {
 	int left = sentence.sentence.find('(');
 
 	string left_paren = sentence.sentence.substr(0, left);
 	sentence.sentence = sentence.sentence.substr(left + 1);
-
-	// cout << "mul operator " << left_paren << endl;
 }
 
-void right_paren(sent& sentence) {
+void right_paren(sentence& sentence) {
 	int right = sentence.sentence.find('(');
 
 	string right_paren = sentence.sentence.substr(0, right);
 	sentence.sentence = sentence.sentence.substr(right + 1);
-
-	// cout << "mul operator " << right_paren << endl;
 }
 
-void constant(sent& sentence) {
-	// cout << "Constant: " << sentence.sentence << endl;
+void constant(sentence& sentence) {
 	sentence.sentence = "\0";
 	sentence.CONST++;
 }

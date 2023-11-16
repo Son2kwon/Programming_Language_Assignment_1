@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include"lexical_analyzer.h"
 using namespace std;
 
 /*
@@ -24,34 +25,39 @@ using namespace std;
 
 */
 
-class sent {	// 한 문장에 대해 정보를 저장하는 class
-public:
-	int ID;
-	int CONST;
-	int OP;
-	string sentence;
+typedef struct data {
+	string name;
+	int value;
+}varData;
 
-	sent(string sentence) {
-		this->sentence = sentence;
-		this->ID = 0;
-		this->CONST = 0;
-		this->OP = 0;
+class symbol_table {	// <ident>의 현재값을 저장하기 위한 symbol table, sentences 단위
+public:
+	vector<varData> datum;
+
+	bool isThere(const string& target) {	// identifier가 기존에 있던 것인지 확인.
+		for (varData& cur : datum) {
+			if (cur.name == target) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 };
 
-void program(vector<string>&);
-void statements(vector<string>&);
-void statement(sent&);
-void expression(sent&);
-void term_tail(sent&);
-void term(sent&);
-void factor_tail(sent&);
-void factor(sent&);
-void constant(sent&);
-void ident(sent&);
+void program(vector<sentence>& sentences);
+void statements(vector<sentence>& sentences);
+void statement(sentence&);
+void expression(sentence&);
+void term_tail(sentence&);
+void term(sentence&);
+void factor_tail(sentence&);
+void factor(sentence&);
+void constant(sentence&);
+void ident(sentence&);
 
-void assignment_op(sent&);
-void add_operator(sent&);
-void mult_operator(sent&);
-void left_paren(sent&);
-void right_paren(sent&);
+void assignment_op(sentence&);
+void add_operator(sentence&);
+void mult_operator(sentence&);
+void left_paren(sentence&);
+void right_paren(sentence&);
